@@ -76,7 +76,7 @@ Enter optional custom words (passphrase) to extend the seed phrase:
 
 #### 2. Same example as above, now showing the BIP-0039 seed and ten accounts
 ```
-$ seed-phrase-to-stellar-keys -s
+$ seed-phrase-to-stellar-keys -s -m
 
 Enter the seed phrase:
 illness spike retreat truth genius clock brain pass fit cave bargain toe
