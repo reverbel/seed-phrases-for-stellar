@@ -73,6 +73,11 @@ Enter optional custom words (passphrase) to extend the seed phrase:
      private seed: SBGWSG6BTNCKCOB3DIFBGCVMUPQFYPA2G4O34RMTB343OYPXU5DJDVMN
      
 ```
+The default behavior of `seed-phrase-to-stellar-keys` is to show just
+the keys for one Stellar account (the primary account). By default, the
+BIP-0039 seed derived from the seed phrase is not shown. This behavior
+can be changed by the '`-m`' (show 10 accounts) and '`-s`' (show the
+BIP-0039 or Electrum seed) switches.
 
 #### 2. Same example as above, now showing the BIP-0039 seed and ten accounts
 ```
