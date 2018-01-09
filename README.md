@@ -1,6 +1,5 @@
-<!---
 [![Build Status](https://travis-ci.org/reverbel/seed-phrases-for-stellar.svg)](https://travis-ci.org/reverbel/seed-phrases-for-stellar)
---->
+
 seed-phrases-for-stellar
 ========================
 
