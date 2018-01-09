@@ -83,3 +83,23 @@ def account_keypair(seed, account_number):
     from stellar_base.keypair import Keypair
     acc_seed = derive_along_path(ACCOUNT_PATH_FORMAT % account_number, seed);
     return Keypair.from_raw_seed(acc_seed)
+
+def selftest():
+    from binascii import unhexlify
+    
+    seed = unhexlify(
+        'e4a5a632e70943ae7f07659df1332160937fad82587216a4c64315a0fb39497ee4a01f76ddab4cba68147977f3a147b6ad584c41808e8238a07f6cc4b582f186'
+    )
+    k = unhexlify(
+        'e0eec84fe165cd427cb7bc9b6cfdef0555aa1cb6f9043ff1fe986c3c8ddd22e3'
+    )
+    key = derive_along_path("m/44'/148'", seed)
+    assert key == k
+
+    kp = account_keypair(seed, 0)
+    assert kp.address().decode() == 'GDRXE2BQUC3AZNPVFSCEZ76NJ3WWL25FYFK6RGZGIEKWE4SOOHSUJUJ6'
+    assert kp.seed().decode() == 'SBGWSG6BTNCKCOB3DIFBGCVMUPQFYPA2G4O34RMTB343OYPXU5DJDVMN'
+
+    kp = account_keypair(seed, 9)
+    assert kp.address().decode() == 'GBTVYYDIYWGUQUTKX6ZMLGSZGMTESJYJKJWAATGZGITA25ZB6T5REF44'
+    assert kp.seed().decode() == 'SCJGVMJ66WAUHQHNLMWDFGY2E72QKSI3XGSBYV6BANDFUFE7VY4XNXXR'
