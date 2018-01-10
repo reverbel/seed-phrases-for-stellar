@@ -22,7 +22,7 @@ load('version', path.join(here, 'seed_phrases_for_stellar/version.py'))
 import version
 
 # Get the long description from the README file
-with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+with open(path.join(here, 'README'), encoding='utf-8') as f:
     long_description = f.read()
 
 if sys.version_info[:3] < (3, 4, 0):
