@@ -30,7 +30,7 @@ SLIP-0010 (https://github.com/satoshilabs/slips/blob/master/slip-0010.md) and
 BIP-0044 (https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki).
 
 # Installation
-    pip install seed-phrases-for-stellar
+    pip3 install seed-phrases-for-stellar
 
 # Command-line usage
 ```
