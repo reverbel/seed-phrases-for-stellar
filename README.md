@@ -141,7 +141,7 @@ distinguishing BIP-0039 seed phrases from Electrum seed phrases,
 phrase. This information has no importance for the derivation of Stellar
 account keys, but it may be helpful to prevent typos from going unnoticed.
 
-#### 4. Key derivation from an Electrum segwit seed phrase, showing also the Electrum seed:
+#### 4. Key derivation from an Electrum segwit seed phrase, showing the Electrum seed:
 
 ```
 $ seed-phrase-to-stellar-keys -s 
@@ -163,7 +163,7 @@ Enter optional custom words (passphrase) to extend the seed phrase:
 
 ```
 
-#### 5. Key derivation from a phrase that is both a valid BIP-0039 seed phrase and an Electrum seed
+#### 5. Key derivation from a phrase that is both a BIP-0039 seed phrase and an Electrum seed phrase
 
 BIP-0039 and Electrum seed phrases are not disjoint sets. In the case of a
 phrase that belongs to both sets, `seed-phrase-to-stellar-keys` performs the
