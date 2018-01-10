@@ -150,7 +150,7 @@ def main():
         action='store_true')
     parser.add_argument(
         '-L',
-        dest='language',
+        dest='lang',
         type=str,
         default='english',
         help='language for BIP-0039 seed phrases (default: english)')
@@ -166,15 +166,15 @@ def main():
         action='store_true')
     args = parser.parse_args()
     
-    if args.list_languages or args.language != 'english':
+    if args.list_languages or args.lang != 'english':
         lst = sorted(Mnemonic.list_languages())
     if args.list_languages:
         for language in lst:
             print(language)
-    elif args.language not in Mnemonic.list_languages():
-        print("language '%s' not available" % args.language)
+    elif args.lang not in Mnemonic.list_languages():
+        print("language '%s' not available" % args.lang)
         try:
-            m = Mnemonic(args.language)
+            m = Mnemonic(args.lang)
         except FileNotFoundError as err:
             msg = str(err)
             # expected msg:
@@ -185,4 +185,4 @@ def main():
     elif args.n < 0:
         print('number of accounts must be greater than zero')
     else:
-        interactive_function(args.language, args.n, args.show_seed, args.force)
+        interactive_function(args.lang, args.n, args.show_seed, args.force)
