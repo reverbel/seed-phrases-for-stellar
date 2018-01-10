@@ -80,7 +80,7 @@ Enter optional custom words (passphrase) to extend the seed phrase:
      
 ```
 
-#### 2. Same example as above, now showing the BIP-0039 seed and ten accounts
+#### 2. Same example as above, now showing the BIP-0039 seed and four accounts
 ```
 $ seed-phrase-to-stellar-keys -s -n 4
 
