@@ -25,9 +25,9 @@ import version
 with open(path.join(here, 'README'), encoding='utf-8') as f:
     long_description = f.read()
 
-if sys.version_info[:3] < (3, 4, 0):
+if sys.version_info[:3] < (3, 5, 0):
     sys.exit('Error: seed-phrases-for-stellar requires Python'
-             ' version >= 3.4.0...')
+             ' version >= 3.5.0...')
 
 setup(
     name='seed-phrases-for-stellar',
