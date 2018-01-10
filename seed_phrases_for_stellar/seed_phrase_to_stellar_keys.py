@@ -66,14 +66,18 @@ def to_binary_seed(seed_phrase, passphrase='', language='english'):
     return (binary_seed, seed_phrase_type)
 
 
+def digit_count(n):
+    return 1 if n < 10 else 1 + digit_count(n // 10)
+
+
 def account_message(i):
-    msg = '\n       account #%d:' % i
+    msg = '       account #%d:' % i
     if i == 0:
         msg += ' ------------- this is the primary account --------------'
-    return msg
+    return '\n' + msg[digit_count(i) - 1:]
 
 
-def interactive_function(language, print_10_accs, print_binary_seed, force):
+def interactive_function(language, n_accounts, print_binary_seed, force):
     from .electrum_mnemonic import bin_to_hexstr
     from .key_derivation import account_keypair
     
@@ -97,8 +101,8 @@ def interactive_function(language, print_10_accs, print_binary_seed, force):
                 print('    Electrum seed:',  bin_to_hexstr(binary_seed))
             else:
                 print('non-standard seed:',  bin_to_hexstr(binary_seed))
-        if print_10_accs:        
-            for i in range(10):
+        if n_accounts > 1:
+            for i in range(n_accounts):
                 kp = account_keypair(binary_seed, i)
                 print(account_message(i))
                 print('       public key:',  kp.address().decode())
@@ -118,17 +122,22 @@ def main():
     from mnemonic import Mnemonic
     from .version import __version__
 
-    parser = argparse.ArgumentParser(prog=os.path.basename(sys.argv[0]))
+    parser = argparse.ArgumentParser(
+        description='''Generate Stellar account keys from BIP-0039/Electrum 
+                       seed phrases''',
+        epilog='''The default behavior of %(prog)s is to show just the keys 
+                  for one Stellar account (the primary account). By default, 
+                  the binary seed derived from the seed phrase is not shown. 
+                  This behavior can be changed by the '-n N' and '-s' switches.
+               '''
+    )
     parser.add_argument(
-        'language',
-        nargs='?',
-        default='english',
-        help='language for BIP-0039 seed phrases (default: english)')
-    parser.add_argument(
-        '-m',
-        '--multiple_accs', 
-        help='show keys for ten accounts',
-        action='store_true')
+        '-n',
+        '--n_accts',
+        dest='n',
+        type=int,
+        default=1,
+        help='show keys for multiple accounts (N > 0)')
     parser.add_argument(
         '-s',
         '--show_seed', 
@@ -139,6 +148,12 @@ def main():
         '--list_languages', 
         help='list available languages for BIP-0039 phrases and exit', 
         action='store_true')
+    parser.add_argument(
+        '-L',
+        dest='language',
+        type=str,
+        default='english',
+        help='language for BIP-0039 seed phrases (default: english)')
     parser.add_argument(
         '-v',
         '--version', 
@@ -151,10 +166,23 @@ def main():
         action='store_true')
     args = parser.parse_args()
     
-    if args.list_languages:
+    if args.list_languages or args.language != 'english':
         lst = sorted(Mnemonic.list_languages())
+    if args.list_languages:
         for language in lst:
             print(language)
+    elif args.language not in Mnemonic.list_languages():
+        print("language '%s' not available" % args.language)
+        try:
+            m = Mnemonic(args.language)
+        except FileNotFoundError as err:
+            msg = str(err)
+            # expected msg:
+            # "[Errno 2] No such file or directory: '...'"
+            if msg.startswith('[Errno 2] '):
+                msg = msg[len('[Errno 2] '):]
+            print(msg)
+    elif args.n < 0:
+        print('number of accounts must be greater than zero')
     else:
-        interactive_function(args.language, args.multiple_accs,
-                             args.show_seed, args.force)
+        interactive_function(args.language, args.n, args.show_seed, args.force)
