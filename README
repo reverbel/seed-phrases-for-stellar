@@ -1,11 +1,11 @@
 seed-phrases-for-stellar
 ========================
 
-This package provides a command-line script and a library module for generating
-Stellar accounts from BIP39/Electrum seed phrases. It performs deterministic
-generation of Stellar account keys from mnemonic seed phrases. Each seed
-phrase may optionally be extended with custom words that play the role of
-an additional passphrase.
+This package provides a command-line script and a library module for
+generating Stellar accounts from BIP-0039/Electrum seed phrases. It
+performs deterministic generation of Stellar account keys from mnemonic
+seed phrases. Each seed phrase may optionally be extended with custom
+words that play the role of an additional passphrase.
 
 seed-phrases-for-stellar accepts two kinds of mnemonic seed phrases:
 
