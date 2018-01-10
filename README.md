@@ -3,12 +3,12 @@
 seed-phrases-for-stellar
 ========================
 
-Command-line script and Python library package for generating Stellar accounts
-from BIP39/Electrum seed phrases
+This Python package provides a command-line script and a library module for
+generating Stellar accounts from BIP-0039/Electrum seed phrases. It performs
+deterministic generation of Stellar account keys from mnemonic seed phrases.
+Each seed phrase may optionally be extended with custom words that play the
+role of an additional passphrase.
 
-This software performs deterministic generation of Stellar account keys
-from mnemonic seed phrases. Each seed phrase may optionally be extended with
-custom words that play the role of an additional passphrase.
 seed-phrases-for-stellar accepts two kinds of mnemonic seed phrases:
 * seed phrases that comply with the BIP-0039 specification
   (https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki), and
@@ -33,23 +33,30 @@ BIP-0044 (https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki).
     pip install seed-phrases-for-stellar
 
 # Command-line usage
-
-    seed-phrase-to-stellar-keys -h
-
+```
+seed-phrase-to-stellar-keys -h
+```
 produces the following output:
+```
+usage: seed-phrase-to-stellar-keys [-h] [-n N] [-s] [-l] [-L LANG] [-v] [-F]
 
-    usage: seed-phrase-to-stellar-keys [-h] [-m] [-s] [-l] [-v] [-F] [language]
+Generate Stellar account keys from BIP-0039/Electrum seed phrases
 
-    positional arguments:
-      language              language for BIP-0039 seed phrases (default: english)
+optional arguments:
+  -h, --help            show this help message and exit
+  -n N, --n_accts N     show keys for multiple accounts (N > 0)
+  -s, --show_seed       show the standard BIP-0039 or Electrum seed
+  -l, --list_languages  list available languages for BIP-0039 phrases and exit
+  -L LANG               language for BIP-0039 seed phrases (default: english)
+  -v, --version         show program's version number and exit
+  -F, --force           force keypair generation from phrase of unknown type
 
-    optional arguments:
-      -h, --help            show this help message and exit
-      -m, --multiple_accs   show keys for ten accounts
-      -s, --show_seed       show the standard BIP-0039 or Electrum seed
-      -l, --list_languages  list available languages for BIP-0039 phrases and exit
-      -v, --version         show program's version number and exit
-      -F, --force           force keypair generation from phrase of unknown type
+The default behavior of seed-phrase-to-stellar-keys is to show just the keys
+for one Stellar account (the primary account). By default, the binary seed
+derived from the seed phrase is not shown. This behavior can be changed by the
+'-n N' and '-s' switches.
+
+```
 
 ## Examples
 
@@ -72,18 +79,12 @@ Enter optional custom words (passphrase) to extend the seed phrase:
      private seed: SBGWSG6BTNCKCOB3DIFBGCVMUPQFYPA2G4O34RMTB343OYPXU5DJDVMN
      
 ```
-The default behavior of `seed-phrase-to-stellar-keys` is to show just
-the keys for one Stellar account (the primary account). By default, the
-BIP-0039 seed derived from the seed phrase is not shown. This behavior
-can be changed by the '`-m`' (show 10 accounts) and '`-s`' (show the
-BIP-0039 or Electrum seed) switches.
 
 #### 2. Same example as above, now showing the BIP-0039 seed and ten accounts
 ```
-$ seed-phrase-to-stellar-keys -s -m
+$ seed-phrase-to-stellar-keys -s -n 4
 
 Enter the seed phrase:
-illness spike retreat truth genius clock brain pass fit cave bargain toe
 illness spike retreat truth genius clock brain pass fit cave bargain toe
 
 Enter optional custom words (passphrase) to extend the seed phrase:
@@ -109,30 +110,6 @@ Enter optional custom words (passphrase) to extend the seed phrase:
        account #3:
        public key: GAOD5NRAEORFE34G5D4EOSKIJB6V4Z2FGPBCJNQI6MNICVITE6CSYIAE
      private seed: SBMWLNV75BPI2VB4G27RWOMABVRTSSF7352CCYGVELZDSHCXWCYFKXIX
-
-       account #4:
-       public key: GBCUXLFLSL2JE3NWLHAWXQZN6SQC6577YMAU3M3BEMWKYPFWXBSRCWV4
-     private seed: SCPCY3CEHMOP2TADSV2ERNNZBNHBGP4V32VGOORIEV6QJLXD5NMCJUXI
-
-       account #5:
-       public key: GBRQY5JFN5UBG5PGOSUOL4M6D7VRMAYU6WW2ZWXBMCKB7GPT3YCBU2XZ
-     private seed: SCK27SFHI3WUDOEMJREV7ZJQG34SCBR6YWCE6OLEXUS2VVYTSNGCRS6X
-
-       account #6:
-       public key: GBY27SJVFEWR3DUACNBSMJB6T4ZPR4C7ZXSTHT6GMZUDL23LAM5S2PQX
-     private seed: SDJ4WDPOQAJYR3YIAJOJP3E6E4BMRB7VZ4QAEGCP7EYVDW6NQD3LRJMZ
-
-       account #7:
-       public key: GAY7T23Z34DWLSTEAUKVBPHHBUE4E3EMZBAQSLV6ZHS764U3TKUSNJOF
-     private seed: SA3HXJUCE2N27TBIZ5JRBLEBF3TLPQEBINP47E6BTMIWW2RJ5UKR2B3L
-
-       account #8:
-       public key: GDJTCF62UUYSAFAVIXHPRBR4AUZV6NYJR75INVDXLLRZLZQ62S44443R
-     private seed: SCD5OSHUUC75MSJG44BAT3HFZL2HZMMQ5M4GPDL7KA6HJHV3FLMUJAME
-
-       account #9:
-       public key: GBTVYYDIYWGUQUTKX6ZMLGSZGMTESJYJKJWAATGZGITA25ZB6T5REF44
-     private seed: SCJGVMJ66WAUHQHNLMWDFGY2E72QKSI3XGSBYV6BANDFUFE7VY4XNXXR
 
 ```
 
