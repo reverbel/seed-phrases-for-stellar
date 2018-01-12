@@ -1,4 +1,4 @@
-# -*- python-mode -*-
+# -*- python -*-
 # -*- coding: UTF-8 -*-
 
 # key_derivation

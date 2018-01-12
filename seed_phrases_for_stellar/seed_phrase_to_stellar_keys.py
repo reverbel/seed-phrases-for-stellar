@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# -*- python-mode -*-
+# -*- python -*-
 # -*- coding: UTF-8 -*-
 
 # seed_phrase_to_stellar_keys

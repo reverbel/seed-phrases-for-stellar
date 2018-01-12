@@ -1,4 +1,4 @@
-# -*- python-mode -*-
+# -*- python -*-
 # -*- coding: UTF-8 -*-
 
 # electrum_mnemonic
