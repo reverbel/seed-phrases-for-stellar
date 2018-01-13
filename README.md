@@ -256,4 +256,4 @@ implementation of BIP39:
         # my_seed_phrase is a valid BIP39 phrase for my_language   
         binary_seed = Mnemonic.to_seed(my_seed_phrase, my_passphrase)
 ```
-The second step remains the same.
+The second step remains unchanged.
