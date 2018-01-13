@@ -188,3 +188,60 @@ s0me p4ssphr4se
      private seed: SDUNJQZRBESMERRIJCSIOKCS7K4VQKGM5BT6CLUX7FEQ3STVUAHIVH2V
 
 ```
+
+# API usage
+
+The deterministic generation of Stellar account keys from a mnemonic seed
+phrase is done in two steps:
+
+1. derive a 64-byte binary seed from a mnemonic seed phrase;
+2. generate Stellar account keypairs from the binary seed.
+
+The first step:
+
+```python
+    from seed_phrases_for_stellar.seed_phrase_to_stellar_keys import to_binary_seed
+    my_seed_phrase = '...'
+    my_passphrase = '...' 
+    my_language = 'english' # relevant in the case of a BIP39 seed phrase only
+    (binary_seed, seed_phrase_type) = to_binary_seed(my_seed_phrase,
+                                                     my_passphrase,
+                                                     my_language)
+```
+At this point, `seed_phrase_type`, is one of the following strings:
+    - 'BIP-0039'
+    - 'BIP-0039 and Electrum standard'
+    - 'BIP-0039 and Electrum segwit'
+    - 'BIP-0039 and Electrum 2FA'
+    - 'Old (pre 2.0) Electrum'
+    - 'Electrum standard'
+    - 'Electrum segwit'
+    - 'Electrum 2FA'
+    - 'UNKNOWN'
+
+The second step:
+
+```python
+    from seed_phrases_for_stellar.key_derivation import account_keypair
+    account_number = ... # an small unsigned integer (0 for the primary account)
+    account_keypair = account_keypair(binary_seed, account_number)
+```
+
+Note that the first step above handles BIP39 and Electrum seed phrases.
+If you do not need to handle Electrum seed phrases, then you can implement
+the first step by using the package `mnemonic`
+(https://github.com/trezor/python-mnemonic), which is the reference
+implementation of BIP39:
+
+```python
+    from mnemonic import Mnemonic
+    my_seed_phrase = '...'
+    my_passphrase = '...' 
+    my_language = 'english'
+    mnemo = Mnemonic(my_language)
+    if mnemo.check(my_seed_phrase):
+        # my_seed_phrase is a valid BIP39 phrase for my_language   
+        binary_seed = Mnemonic.to_seed(my_seed_phrase, my_passphrase)
+                                                     my_language)
+```
+The second step remains the same.
