@@ -64,7 +64,7 @@ def ser32(i):
     
 
 def new_master_key(seed):
-    """Return the extended master key derived from a 64-byte seed.
+    """Return the extended master key derived from a 64-byte binary seed.
     
     BIP-0032 defines an extended key as a pair (private_key, chain_code).
     The extended master key is the pair (master_private_key, master_chain_code)
@@ -85,10 +85,10 @@ def derive(parent_key, parent_chain_code, i):
 
 
 def derive_along_path(path, seed):
-    """Derive an extended key from a 64-byte seed and a BIP-0044 path.
+    """Derive an extended key from a 64-byte binary seed and a BIP-0044 path.
 
     Returns the extended key obtained by following the given derivation path, 
-    starting at the extended master key derived from the given seed.
+    starting at the extended master key derived from the given binary seed.
     """
     elements = list(element.rstrip("'") for element in path.split('/'))[1:]
     (key, chain_code) = new_master_key(seed)
