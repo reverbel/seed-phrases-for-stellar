@@ -197,8 +197,7 @@ phrase is done in two steps:
 1. derive a 64-byte binary seed from a mnemonic seed phrase;
 2. generate Stellar account keypairs from the binary seed.
 
-The first step:
-
+#### 1. The first step
 ```python
     from seed_phrases_for_stellar.seed_phrase_to_stellar_keys import to_binary_seed
     my_seed_phrase = '...'
@@ -208,7 +207,7 @@ The first step:
                                                      my_passphrase,
                                                      my_language)
 ```
-At this point, `seed_phrase_type`, is one of the following strings:
+At this point, `seed_phrase_type` is one of the following strings:
 - `'BIP-0039'`
 - `'BIP-0039 and Electrum standard'`
 - `'BIP-0039 and Electrum segwit'`
@@ -219,14 +218,25 @@ At this point, `seed_phrase_type`, is one of the following strings:
 - `'Electrum 2FA'`
 - `'UNKNOWN'`
 
-The second step:
+If `my_seed_phrase` is a BIP39-compliant phrase for `my_language`
+(this condition covers the first four cases listed above), the
+`to_binary_seed` call generates the binary seed as recommended by BIP39.
+Otherwise, if `my_seed_phrase` is an Electrum seed phrase (this condition
+covers the next four cases listed above), the `to_binary_seed` call generates
+the binary seed by using Electrum's algorithm. Otherwise (this is the last
+case listed above), the `to_binary_seed` call generates the binary seed in
+a non-standard way.
 
+#### 2. The second step
 ```python
     from seed_phrases_for_stellar.key_derivation import account_keypair
     account_number = ... # an small unsigned integer (0 for the primary account)
     account_keypair = account_keypair(binary_seed, account_number)
 ```
+The `account_keypair` call performs the key derivation specified by SEP-0005,
+SLIP-0010, and BIP-0044.
 
+#### 3. Alternative BIP39-only implementation of the first step
 Note that the first step above handles both BIP39 and Electrum seed phrases.
 If you do not need to handle Electrum seed phrases, then you can implement
 the first step by using the package `mnemonic`
