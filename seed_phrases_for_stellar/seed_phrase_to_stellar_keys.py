@@ -27,7 +27,7 @@
 
 
 def to_binary_seed(seed_phrase, passphrase='', language='english'):
-    """Derive a 64-bit binary seed from a mnemonic seed phrase.
+    """Derive a 64-byte binary seed from a mnemonic seed phrase.
 
     Return a pair (binary_seed, seed_phrase_type), where seed_phrase_type
     is one of the following strings:
