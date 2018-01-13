@@ -209,15 +209,15 @@ The first step:
                                                      my_language)
 ```
 At this point, `seed_phrase_type`, is one of the following strings:
-    - 'BIP-0039'
-    - 'BIP-0039 and Electrum standard'
-    - 'BIP-0039 and Electrum segwit'
-    - 'BIP-0039 and Electrum 2FA'
-    - 'Old (pre 2.0) Electrum'
-    - 'Electrum standard'
-    - 'Electrum segwit'
-    - 'Electrum 2FA'
-    - 'UNKNOWN'
+- `'BIP-0039'`
+- `'BIP-0039 and Electrum standard'`
+- `'BIP-0039 and Electrum segwit'`
+- `'BIP-0039 and Electrum 2FA'`
+- `'Old (pre 2.0) Electrum'`
+- `'Electrum standard'`
+- `'Electrum segwit'`
+- `'Electrum 2FA'`
+- `'UNKNOWN'`
 
 The second step:
 
@@ -227,7 +227,7 @@ The second step:
     account_keypair = account_keypair(binary_seed, account_number)
 ```
 
-Note that the first step above handles BIP39 and Electrum seed phrases.
+Note that the first step above handles both BIP39 and Electrum seed phrases.
 If you do not need to handle Electrum seed phrases, then you can implement
 the first step by using the package `mnemonic`
 (https://github.com/trezor/python-mnemonic), which is the reference
@@ -242,6 +242,5 @@ implementation of BIP39:
     if mnemo.check(my_seed_phrase):
         # my_seed_phrase is a valid BIP39 phrase for my_language   
         binary_seed = Mnemonic.to_seed(my_seed_phrase, my_passphrase)
-                                                     my_language)
 ```
 The second step remains the same.
