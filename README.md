@@ -202,7 +202,9 @@ phrase is done in two steps:
     from seed_phrases_for_stellar.seed_phrase_to_stellar_keys import to_binary_seed
     my_seed_phrase = '...'
     my_passphrase = '...' 
-    my_language = 'english' # relevant in the case of a BIP39 seed phrase only
+    my_language = 'english' # or other language listed in
+                            # https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md
+                            # NB: the language is relevant only in the case of a BIP39 seed phrase
     (binary_seed, seed_phrase_type) = to_binary_seed(my_seed_phrase,
                                                      my_passphrase,
                                                      my_language)
@@ -247,7 +249,8 @@ implementation of BIP39:
     from mnemonic import Mnemonic
     my_seed_phrase = '...'
     my_passphrase = '...' 
-    my_language = 'english'
+    my_language = 'english' # or other language listed in
+                            # https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md
     mnemo = Mnemonic(my_language)
     if mnemo.check(my_seed_phrase):
         # my_seed_phrase is a valid BIP39 phrase for my_language   
