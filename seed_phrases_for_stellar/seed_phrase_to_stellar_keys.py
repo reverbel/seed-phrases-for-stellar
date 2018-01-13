@@ -27,6 +27,32 @@
 
 
 def to_binary_seed(seed_phrase, passphrase='', language='english'):
+    """Derive a 64-bit binary seed from a mnemonic seed phrase.
+
+    Return a pair (binary_seed, seed_phrase_type), where seed_phrase_type
+    is one of the following strings:
+    - 'BIP-0039'
+    - 'BIP-0039 and Electrum standard'
+    - 'BIP-0039 and Electrum segwit'
+    - 'BIP-0039 and Electrum 2FA'
+    - 'Old (pre 2.0) Electrum'
+    - 'Electrum standard'
+    - 'Electrum segwit'
+    - 'Electrum 2FA'
+    - 'UNKNOWN'
+
+    If seed_phrase is a BIP39-compliant phrase for the specfied language
+    (this condition covers the first four cases listed above), generate 
+    the binary seed as recommended by BIP39. Otherwise, if seed_phrase 
+    is an Electrum seed phrase (this condition covers the next four cases 
+    listed above), generate the binary seed by using Electrum's algorithm.
+    Otherwise (this is the last case listed above), generate the binary 
+    seed in a non-standard way.
+    
+    Keyword arguments:
+    passphrase -- an optional extension of the seed phrase (default: '')
+    language -- the language for a BIP-0039 seed phrase (default: 'english')
+    """
     import hashlib
     import hmac
     from pbkdf2 import PBKDF2
