@@ -98,7 +98,7 @@ def derive_along_path(path, seed):
 
 
 def account_keypair(seed, account_number):
-    """Return the Stellar keypair for a given seed and account_number."""
+    """Return the account keypair for a 64-byte binary seed and account_number."""
     from stellar_base.keypair import Keypair
     acc_seed = derive_along_path(ACCOUNT_PATH_FORMAT % account_number, seed);
     return Keypair.from_raw_seed(acc_seed)
